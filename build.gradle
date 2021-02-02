@@ -1,0 +1,73 @@
+//1. 단축키 ctrl+space 라이브러리목록 보는 단축키 ??
+//2. p39 프로젝트 의존성 화면 틀림
+
+
+//프로젝트의 플러그인 의존성 관리를 위한 설정
+buildscript {
+    //ext : build.gradle에서 사용하는 전역변수를 설정하겠다는 의미
+    ext {
+        springBootVersion = '2.1.9.RELEASE'
+    }
+    //라이브러리들을 받을 원격 저장소
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    //의존성들을 선언
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+//플러그인 적용(필수 플러그인)
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' //스프링 부트의 의존성들을 관리해 주는 플러그인이라 꼭 추가해야 함
+
+group 'com.jojoldu.book'
+version '1.0.4-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+    compile('com.h2database:h2')
+
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    compile('org.springframework.session:spring-session-jdbc')
+
+    compile("org.mariadb.jdbc:mariadb-java-client")
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.security:spring-security-test")
+}
+
+/*
+plugins {
+    id 'java'
+}
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+*/
